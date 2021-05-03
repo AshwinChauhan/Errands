@@ -90,7 +90,7 @@ public void initialize(URL location, ResourceBundle resources) {
 			observable,oldValue,newValue)-> showErrands(newValue));
 }
 
-//Ajouter un étudiant
+//Ajouter un Errand
 @FXML
 void ajouter()
 {
@@ -98,12 +98,56 @@ void ajouter()
 	
 	tmp=new Errands();
 	tmp.setNom(txtNom.getText());
-	tmp.setPrenom(txtNom.getText());
-	tmp.setAge(Double.parseDouble(txtAge.getText()));
-	tmp.setDepartement(cboDept.getValue());
-	etudiantData.add(tmp);
+	tmp.setPrix(txtPrix.getText());
+	tmp.setDist(Double.parseDouble(txtDis.getText()));
+	tmp.setUtil(cboUt.getValue());
+	errandsData.add(tmp);
 	clearFields();
 }
+
+//Effacer le contenu des champs
+@FXML
+void clearFields()
+{
+	cboUt.setValue(null);
+	txtPrix.setText("");
+	txtNom.setText("");
+	txtDis.setText("");
+}
+
+//Afficher les étudiants
+public void showErrands(Errands errands)
+{
+	if(errands !=null)
+	{
+		cboUt.setValue(errands.getUtil());
+		txtPrix.setText(errands.getPrix());
+		txtNom.setText(errands.getNom());
+		txtDis.setText(Double.toString(errands.getDist()));
+		btnModifier.setDisable(false);
+		btnEffacer.setDisable(false);
+		btnClear.setDisable(false);
+	}
+	else
+	{
+		clearFields();
+	}
+	
+	
+}
+//Mise a jour d'un étudiant
+@FXML
+public void updatedEtudiant()
+{
+	Errands errands=errandsTable.getSelectionModel().getSelectedItem();
+	
+	errands.setNom(txtNom.getText());
+	errands.setPrix(txtPrix.getText());
+	errands.setDist(Double.parseDouble(txtDis.getText()));
+	errands.setUtil(cboUt.getValue());
+	errandsTable.refresh();
+}
+
 	
 }
 
