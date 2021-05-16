@@ -9,7 +9,7 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.XYChart;
 
-public class DisStat 
+public class Statistique 
 {
 	@FXML
 	private BarChart<String, Integer> barChart;
@@ -17,54 +17,54 @@ public class DisStat
 	@FXML
 	private CategoryAxis xAxis;
 	
-	private ObservableList<String> intervalAges=FXCollections.observableArrayList();
+	private ObservableList<String> intervalDist=FXCollections.observableArrayList();
 	
 	@FXML
 	private void initialize()
 	{
-		intervalAges.add("0-10");
-		intervalAges.add("10-20");
-		intervalAges.add("20-30");
-		intervalAges.add("30-40");
-		intervalAges.add("40-50");
-		intervalAges.add("50-60");
-		xAxis.setCategories(intervalAges);
+		intervalDist.add("0-20");
+		intervalDist.add("20-40");
+		intervalDist.add("40-60");
+		intervalDist.add("60-80");
+		intervalDist.add("80-100");
+		intervalDist.add("100-120");
+		xAxis.setCategories(intervalDist);
 	}
 	
 	public void SetStats(List<Errands> errands)
 	{
-		//Compter les étudiants appartenant a la meme tranche d'age
+		//Compter les errands appartenant a la meme tranche d'age
 		
-		int[] ageCounter = new int[6]; // Tableau pour les nombres des tranches d'age
+		int[] DisCounter = new int[6]; // Tableau pour les nombres des tranches dde distance
 		
 		for(Errands e : errands)
 		{
 			double age = e.getDist();
 			
 			if(age<=10)
-				ageCounter[0]++;
+				DisCounter[0]++;
 			else
 				if(age<=20)
-					ageCounter[1]++;
+					DisCounter[1]++;
 				else
 					if(age<=30)
-						ageCounter[2]++;
+						DisCounter[2]++;
 					else
 						if(age<=40)
-							ageCounter[3]++;
+							DisCounter[3]++;
 						else
 							if(age<=50)
-								ageCounter[4]++;
+								DisCounter[4]++;
 							else
-								ageCounter[5]++;
+								DisCounter[5]++;
 			
 		}
 		XYChart.Series<String, Integer> series = new XYChart.Series<>();
 		series.setName("Distance"); // Légende pour le graphique
 		//Création du graphique
-		for(int i=0; i<ageCounter.length;i++)
+		for(int i=0; i<DisCounter.length;i++)
 		{
-			series.getData().add(new XYChart.Data<>(intervalAges.get(i), ageCounter[i]));
+			series.getData().add(new XYChart.Data<>(intervalDist.get(i), DisCounter[i]));
 			
 		}
 		barChart.getData().add(series);

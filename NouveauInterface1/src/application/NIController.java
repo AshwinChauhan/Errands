@@ -21,6 +21,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -29,7 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import javafx.fxml.FXML;
 public class NIController implements Initializable {
 
     @FXML
@@ -82,10 +83,10 @@ public class NIController implements Initializable {
 
   	private ObservableList<String> list=(ObservableList<String>) FXCollections.observableArrayList("Voiture","Maison","Metier");
 
-  //Placer les etudiants dans u ne observable list
+  //Placer les Errands dans une observable list
   public ObservableList<Errands> errandsData=FXCollections.observableArrayList();
 
-  //Creer une methode pour accéder a la lste des Etudiants
+  //Creer une methode pour accéder a la lste des Errands
 
   public ObservableList<Errands> geterrandsData()
   {
@@ -107,11 +108,10 @@ public void initialize(URL location, ResourceBundle resources) {
 	btnClear.setDisable(true);
 	
 	showErrands(null);
-	//Mettre a jour l'affichage d'un étudiant sélectionné
+	//Mettre a jour l'affichage d'un errand sélectionné
 	errandsTable.getSelectionModel().selectedItemProperty().addListener((
 			observable,oldValue,newValue)-> showErrands(newValue));
 	
-	// Mettre la colonne de prénom multiligne
 	
 }
 
@@ -140,7 +140,7 @@ void clearFields()
 	txtDis.setText("");
 }
 
-//Afficher les étudiants
+//Afficher les errands
 public void showErrands(Errands errands)
 {
 	if(errands !=null)
@@ -160,7 +160,7 @@ public void showErrands(Errands errands)
 	
 	
 }
-//Mise a jour d'un étudiant
+//Mise a jour d'un errand
 @FXML
 public void updatedErrrands()
 {
@@ -368,10 +368,10 @@ void handleStats()
 {
 	try
 	{
-		FXMLLoader loader = new FXMLLoader(Main.class.getResource("NI.fxml"));
+		FXMLLoader loader = new FXMLLoader(Main.class.getResource("Stat.fxml"));
 		AnchorPane pane = loader.load();
 		Scene scene = new Scene(pane);
-		DisStat Disstat = loader.getController();
+		Statistique Disstat = loader.getController();
 		Disstat.SetStats(errandsData);
 		Stage stage = new Stage();
 		stage.setScene(scene);
@@ -391,7 +391,9 @@ private void fermer()
 {
 	System.exit(0);
 }
+
 	
 }
+
 
 
